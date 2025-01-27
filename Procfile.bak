@@ -1,1 +1,0 @@
-web: cd VOCAB_GAME/FLASK && newrelic-admin run-program gunicorn app:app
