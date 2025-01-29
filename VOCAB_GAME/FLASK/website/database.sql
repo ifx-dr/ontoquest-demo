@@ -7,7 +7,7 @@ CREATE TABLE ontology (
 	ontology_url VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO ontology VALUES(DEFAULT,'Bms System V5.04 Dr','This ontology deals with the domain BMS System v5.04','picture/ontologies_pictures/bms_system_v5.04_DR.jpg','bms_system_v5.04_DR.rdf');
+INSERT INTO ontology VALUES(DEFAULT,'Planning Ontology','This ontology models semiconductor supply chain planning','picture/ontologies_pictures/supplychain.jpg','PlanningOntology.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Microcontroller','This ontology deals with the domain microcontroller.','picture/ontologies_pictures/microcontroller.jpg','microcontroller.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Ordermanagement','This ontology deals with the domain order management.','picture/ontologies_pictures/OrderManagement.jpg','OrderManagement.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Power','Power2Power is an European co-funded innovation project on Semiconductor Industry with the goal of conducting the research and development of innovative power semiconductors with more power density and energy efficiency','picture/ontologies_pictures/Power.jpg','Power.rdf');
@@ -23,7 +23,7 @@ CREATE TABLE department_ontology_association (
 	FOREIGN KEY(ontology_id) REFERENCES ontology (id)
 );
 INSERT INTO department_ontology_association VALUES(DEFAULT,'CSC (Corporate Supply Chain)',DEFAULT);
-INSERT INTO department_ontology_association VALUES(DEFAULT,'CSC (Corporate Supply Chain)',DEFAULT);
+INSERT INTO department_ontology_association VALUES(DEFAULT,'GIP (Green Industrial Power)',DEFAULT);
 INSERT INTO department_ontology_association VALUES(DEFAULT,'GIP (Green Industrial Power)',DEFAULT);
 INSERT INTO department_ontology_association VALUES(DEFAULT,'PSS (Power & Sensor Systems)',DEFAULT);
 INSERT INTO department_ontology_association VALUES(DEFAULT,'PSS (Power & Sensor Systems)',DEFAULT);
