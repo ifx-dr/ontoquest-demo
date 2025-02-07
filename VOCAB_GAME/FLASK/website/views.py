@@ -769,14 +769,14 @@ def handle_question(question_number):
         # Retrieve additional information for rendering the question interface
         alternative_names = random_word.hasAlternativeName or ['N/A']  # If no alternative names, default to 'N/A'
         abbreviations = random_word.hasAbbreviation or ['N/A']  # If no abbreviations, default to 'N/A'
-        german_names = random_word.hasGermanName or ['N/A']  # If no German names, default to 'N/A'
+        # german_names = random_word.hasGermanName or ['N/A']  # If no German names, default to 'N/A'
         examples = random_word.hasExample or ['N/A']  # If no examples, default to 'N/A'
 
         return render_template('handle-question.html', user=current_user, question_number=question_number,
                                word=random_word.name, definition=highest_scored_definition,
                                rounded_percentage=rounded_percentage, ontology_graph=graph_json,
                                onto_id=ontology_selected.id, alternative_names=alternative_names,
-                               abbreviations=abbreviations, german_names=german_names, examples=examples)
+                               abbreviations=abbreviations, examples=examples)
 
     # Handle the user's response and perform appropriate actions based on the input
     elif request.method == 'POST':
@@ -788,7 +788,7 @@ def handle_question(question_number):
         print('profile word:', random_word)
         alternative_name = request.form.get('alternativeName') # Retrieve the alternative name input from the form
         abbreviation = request.form.get('abbreviation') # Retrieve the abbreviation input from the form
-        german_name = request.form.get('germanName') # Retrieve the German name input from the form
+        #german_name = request.form.get('germanName') # Retrieve the German name input from the form
         example = request.form.get('example') # Retrieve the example input from the form
 
         # Update the ontology classes with the user-provided information
@@ -798,8 +798,8 @@ def handle_question(question_number):
                     owl_class.hasAlternativeName.append(alternative_name)  # Add the alternative name to the class
                 elif abbreviation:
                     owl_class.hasAbbreviation.append(abbreviation)  # Add the abbreviation to the class
-                elif german_name:
-                    owl_class.hasGermanName.append(german_name)  # Add the German name to the class
+                #elif german_name:
+                #   owl_class.hasGermanName.append(german_name)  # Add the German name to the class
                 elif example:
                     owl_class.hasExample.append(example)  # Add the example to the class
 
@@ -816,7 +816,7 @@ def handle_question(question_number):
 
             session['alternative_name'] = alternative_name
             session['abbreviation'] = abbreviation
-            session['german_name'] = german_name
+            #session['german_name'] = german_name
             session['example'] = example
             extended_user_activity = ExtendedUserDefinitions(
             profile_id=current_user.id,
@@ -826,7 +826,7 @@ def handle_question(question_number):
             #revised_definition=revised_definition,
             alternative_name=alternative_name,
             abbreviation=abbreviation,
-            german_name=german_name,
+            #german_name=german_name,
             example=example,
             ontology_iri=onto.base_iri)
 
@@ -985,13 +985,6 @@ def enter_definition(question_number):
             db.session.commit()  # Commit the transaction to the database
 
             # Update the user's activity with the entered definition and action type
-            ###  user_activity = UserDefinitions.query.filter_by(profile_id=current_user.id,
-            ###                                                  profile_definition=profile_game.random_definition).first()  # Retrieve the user's activity record
-            ###  
-            ###  user_activity.revised_definition = entered_definition # Update the user's revised definition
-            ###  user_activity.action_type = "entered" # Update the user's activity type
-            ###  db.session.commit()  # Commit the transaction to the database
-
             user_activity = UserDefinitions.query.filter_by(profile_id=current_user.id, profile_definition=profile_game.random_definition).first()
             if user_activity is None:
                 user_activity = UserDefinitions(
@@ -1007,13 +1000,12 @@ def enter_definition(question_number):
                 user_activity.action_type = "entered"
                 db.session.commit()
 
-
-    #        # Update the user's activity with the entered definition and action type
-    #        extended_user_activity = ExtendedUserDefinitions.query.filter_by(profile_id=current_user.id,
-    #                                                        profile_definition=profile_game.random_definition).first()  # Retrieve the user's activity record
-    #        extended_user_activity.revised_definition = entered_definition # Update the user's revised definition
-    #        extended_user_activity.action_type = "entered" # Update the user's activity type
-    #        db.session.commit()  # Commit the transaction to the database
+        ## no necesary    # Update the user's activity with the entered definition and action type
+        ## no necesary    extended_user_activity = ExtendedUserDefinitions.query.filter_by(profile_id=current_user.id,
+        ## no necesary                                                    profile_definition=profile_game.random_definition).first()  # Retrieve the user's activity record
+        ## no necesary    extended_user_activity.revised_definition = entered_definition # Update the user's revised definition
+        ## no necesary    extended_user_activity.action_type = "entered" # Update the user's activity type
+        ## no necesary    db.session.commit()  # Commit the transaction to the database
 
             for owl_class in classes:
                 if owl_class.name == random_word:

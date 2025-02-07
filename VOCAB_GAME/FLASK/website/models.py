@@ -100,7 +100,7 @@ class ExtendedUserDefinitions(db.Model):
     revised_definition = db.Column(db.String(1000), db.ForeignKey('definition_scores.definition'))
     alternative_name = db.Column(db.String(100))
     abbreviation = db.Column(db.String(100))
-    german_name = db.Column(db.String(100))
+    #german_name = db.Column(db.String(100))
     example = db.Column(db.String(1000))
     ontology_iri = db.Column(db.String(250))
 

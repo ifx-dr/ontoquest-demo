@@ -55,10 +55,6 @@
                     {% if abbreviations|length > 3 %}, ...{% endif %}
                 </li>
                 <li>
-                    <span>German Names:</span> {{ german_names[:3] | join(", ") }}
-                    {% if german_names|length > 3 %}, ...{% endif %}
-                </li>
-                <li>
                     <span>Examples:</span> {{ examples[:3] | join(", ") }}
                     {% if examples|length > 3 %}, ...{% endif %}
                 </li>
@@ -104,10 +100,6 @@
                 {% if abbreviations|length > 3 %}, ...{% endif %}
             </li>
             <li>
-                <span>German Names:</span> {{ german_names[:3] | join(", ") }}
-                {% if german_names|length > 3 %}, ...{% endif %}
-            </li>
-            <li>
                 <span>Examples:</span> {{ examples[:3] | join(", ") }}
                 {% if examples|length > 3 %}, ...{% endif %}
             </li>
@@ -151,8 +143,6 @@
                         <input type="text" class="form-control" id="alternativeName" name="alternativeName">
                         <label for="abbreviation">Abbreviation:</label>
                         <input type="text" class="form-control" id="abbreviation" name="abbreviation">
-                        <label for="germanName">German Name:</label>
-                        <input type="text" class="form-control" id="germanName" name="germanName">
                         <label for="example">Example:</label>
                         <input type="text" class="form-control" id="example" name="example">
                     </div>
@@ -227,7 +217,6 @@
             // Retrieve user input for additional information
             var alternativeName = document.getElementById('alternativeName').value;
             var abbreviation = document.getElementById('abbreviation').value;
-            var germanName = document.getElementById('germanName').value;
             var example = document.getElementById('example').value;
 
             // Add the user-input data as hidden input fields to the response form
@@ -241,12 +230,6 @@
             input.setAttribute("type", "hidden");
             input.setAttribute("name", "abbreviation");
             input.setAttribute("value", abbreviation);
-            responseForm.appendChild(input);
-
-            input = document.createElement("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "germanName");
-            input.setAttribute("value", germanName);
             responseForm.appendChild(input);
 
             input = document.createElement("input");

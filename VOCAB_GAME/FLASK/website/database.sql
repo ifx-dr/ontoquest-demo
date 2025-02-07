@@ -7,7 +7,7 @@ CREATE TABLE ontology (
 	ontology_url VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO ontology VALUES(DEFAULT,'Planning Ontology','This ontology models semiconductor supply chain planning','picture/ontologies_pictures/supplychain.jpg','PlanningOntology.rdf');
+INSERT INTO ontology VALUES(DEFAULT,'Planning Lobe','This Lobe models semiconductor supply chain planning','picture/ontologies_pictures/supplychain.jpg','PlanningOntology.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Microcontroller','This ontology deals with the domain microcontroller.','picture/ontologies_pictures/microcontroller.jpg','microcontroller.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Ordermanagement','This ontology deals with the domain order management.','picture/ontologies_pictures/OrderManagement.jpg','OrderManagement.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Power','Power2Power is an European co-funded innovation project on Semiconductor Industry with the goal of conducting the research and development of innovative power semiconductors with more power density and energy efficiency','picture/ontologies_pictures/Power.jpg','Power.rdf');
@@ -23,7 +23,6 @@ CREATE TABLE department_ontology_association (
 	FOREIGN KEY(ontology_id) REFERENCES ontology (id)
 );
 INSERT INTO department_ontology_association VALUES(DEFAULT,'CSC (Corporate Supply Chain)',DEFAULT);
-INSERT INTO department_ontology_association VALUES(DEFAULT,'GIP (Green Industrial Power)',DEFAULT);
 INSERT INTO department_ontology_association VALUES(DEFAULT,'GIP (Green Industrial Power)',DEFAULT);
 INSERT INTO department_ontology_association VALUES(DEFAULT,'PSS (Power & Sensor Systems)',DEFAULT);
 INSERT INTO department_ontology_association VALUES(DEFAULT,'PSS (Power & Sensor Systems)',DEFAULT);
@@ -41,6 +40,7 @@ INSERT INTO "user" VALUES(DEFAULT,'marie@gmail.com','pbkdf2:sha256:600000$8DKqUW
 INSERT INTO "user" VALUES(DEFAULT,'abcd@gmail.com','pbkdf2:sha256:600000$HuxL2dxHa3qQDZ0O$2b2d38b973a8575593ea6b72deba47f3eddd171116fae17cfb109b9a40881d24','Syha');
 INSERT INTO "user" VALUES(DEFAULT,'jon.legorburu@infineon.com','pbkdf2:sha256:600000$zaesaVlpgSdBbxkt$9c3eb417dcc8e7d3a3b0befac2a8e685a4bbf22b13f500a5862d346e60418853','Jon');
 INSERT INTO "user" VALUES(DEFAULT,'demo@demo','pbkdf2:sha256:600000$qL8kH4Lt3MkAqx2f$5a25aff6b42102a3a69a350467a38e2a86ea0e2e7f114329061ec3491984b4df','Demo');
+INSERT INTO "user" VALUES(DEFAULT,'sc4eu@infineon.com','pbkdf2:sha256:600000$f6ea132839244c08de644b8e86916db7$ac1f241c8b03240c1b43f544fec9f2e10b754467ce396e91eef858ef9f7dcc1b','SC4EU');
 CREATE TABLE profile (
 	id SERIAL, 
 	username VARCHAR(150), 
@@ -57,6 +57,7 @@ INSERT INTO profile VALUES(DEFAULT,'Marie','picture/user_profile/user1-removebg-
 INSERT INTO profile VALUES(DEFAULT,'Syha','picture/user_profile/user1-removebg-preview.png',1,110,4);
 INSERT INTO profile VALUES(DEFAULT,'Jon','picture/user_profile/user1-removebg-preview.png',0,0,1);
 INSERT INTO profile VALUES(DEFAULT,'Demo','picture/user_profile/user1-removebg-preview.png',0,0,6);
+INSERT INTO profile VALUES(DEFAULT,'SC4EU','picture/user_profile/user1-removebg-preview.png',0,99,7);
 CREATE TABLE challenges (
 	id SERIAL, 
 	challenge VARCHAR(10000), 
@@ -469,7 +470,7 @@ CREATE TABLE extended_user_definitions (
 	revised_definition VARCHAR(10000), 
 	alternative_name VARCHAR(100), 
 	abbreviation VARCHAR(100), 
-	german_name VARCHAR(100), 
+	--german_name VARCHAR(100), 
 	example VARCHAR(10000), 
 	ontology_iri VARCHAR(250), 
 	PRIMARY KEY (id), 
@@ -478,5 +479,5 @@ CREATE TABLE extended_user_definitions (
 	--FOREIGN KEY(profile_definition) REFERENCES definition_scores (definition), 
 	--FOREIGN KEY(revised_definition) REFERENCES definition_scores (definition)
 );
-INSERT INTO extended_user_definitions VALUES(DEFAULT,DEFAULT,'Customer_Data','Customer data such as address and company name','entered','My new definition','alternative name','abbreviation','German Name','Example','http://www.w3id.org/ecsel-dr-OM#');
+INSERT INTO extended_user_definitions VALUES(DEFAULT,DEFAULT,'Customer_Data','Customer data such as address and company name','entered','My new definition','alternative name','abbreviation','Example','http://www.w3id.org/ecsel-dr-OM#');
 COMMIT;

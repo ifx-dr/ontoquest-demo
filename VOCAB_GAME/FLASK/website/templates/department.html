@@ -45,13 +45,20 @@
 
 <!-- Page content -->
 <div class="content">
-    <h1>Select Your Department</h1>
-    <p>Selecting your department ensures that only the most relevant ontologies are presented, aligning with your expertise and enhancing your engagement within your specific area of interest at Infineon Technologies.</p>
+    <h1>Digital Reference</h1>
+    <p>The Digital Reference originates from the Productive4.0 project, part of the Industry 4.0 movement, which aims to create a digital platform to connect industries and value chains using technologies such as the Semantic Web and ontologies. The model uses a Semantic Web approach to map complex supply chain networks in the semiconductor industry and other areas, organizing 1500 categories into 14 "lobes" that represent specific aspects of the supply chain and serve as knowledge bases for both humans and machines.</p>
+
+    <br>
+    <br>
+
 
     <!-- Department selection button -->
     <form method="POST">
         <div class="selection-container">
-            <select name="departments" id="department-select" autocomplete="on">
+            <!-- Next button to navigate to another page -->
+            <img style="margin-left: 5%;" src="{{ url_for('static', filename='picture/ontologies_pictures/Lobesv1.png') }}" alt="Lobesv1">
+            <button type="submit" class="next-button" style="position: relative; top: 0; left: 0; transform: none; margin: 20px auto;">Next</button>
+            <select name="departments" id="department-select" autocomplete="on" hidden>
                 <option value="" disabled>--Please choose an option--</option>
                 <option value="CSC (Corporate Supply Chain)" selected>CSC (Corporate Supply Chain)</option>
                 <!-- <option value="GIP (Green Industrial Power)">GIP (Green Industrial Power)</option> -->
@@ -59,8 +66,7 @@
                 <!-- When adding a new department, add an option with the department's name that you entered in the DB as value -->
             </select>
         </div>
-        <!-- Next button to navigate to another page -->
-        <button type="submit" class="next-button">Next</button>
+
     </form>
 </div>
 
