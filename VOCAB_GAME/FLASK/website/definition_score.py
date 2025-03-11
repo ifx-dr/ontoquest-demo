@@ -24,12 +24,21 @@ def get_highest_scored_definition(random_word):
     The definition with the highest score for the random word's class.
     """
     # Logic to retrieve the definition with the highest score for the random word's class
-    highest_scored_definition = DefinitionScores.query.filter_by(class_name=random_word.name).order_by(DefinitionScores.score.desc()).first()
+    #highest_scored_definition = DefinitionScores.query.filter_by(class_name=random_word.name).order_by(DefinitionScores.score.desc()).first()
+    #highest_scored_definition = DefinitionScores.query.filter_by(class_name=random_word.name).first()
 
-    if highest_scored_definition:
-        return highest_scored_definition.definition
-    else:
-        flash('No definition for this term', category='error')  # Handle potential exceptions that could occur during the retrieval process
+    #if highest_scored_definition:
+    #    return highest_scored_definition.definition
+    #else:
+    #    flash('No definition for this term', category='error')  # Handle potential exceptions that could occur during the retrieval process
+    
+    definition = "No definition available"    
+    if random_word.comment:
+        definition = str(random_word.comment[0])
+    elif random_word.label:
+        definition = str(random_word.label[0])
+        
+    return definition
 
 def increase_score_for_definition(random_word, definition):
     """

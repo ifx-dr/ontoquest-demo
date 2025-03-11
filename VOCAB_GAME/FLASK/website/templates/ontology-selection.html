@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Ontology Selection{% endblock %}
+{% block title %}Loading{% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ontology-selection.css') }}">
@@ -43,13 +43,14 @@
 </div>
 <div class="content">
     <!-- Page content -->
-    <h1 class="title">Lobe Selection</h1>
+    <h1 class="title">Loading the ontology...</h1>
     <div class="text">
-        <p>Customize your learning experience by selecting from a range of relevant ontologies tailored to your domain. Get ready to delve into the immersive world of semiconductor vocabulary exploration.</p>
+        <p>Please wait.</p>
+        <!--<p>Customize your learning experience by selecting from a range of relevant ontologies tailored to your domain. Get ready to delve into the immersive world of semiconductor vocabulary exploration.</p>-->
     </div>
 
 <!-- Ontology selection form -->
-    <form method="POST">
+    <form method="POST" style="display: none;">
         <input type="hidden" id="selectedOntologyId" name="selectedOntologyId">
         <div class="ontology-container">
             <button id="previousButton" onclick="showPreviousOntology()" class="ontologySelection"></button> <!-- Left arrow button -->
@@ -87,6 +88,7 @@
 
         // Capture the selected ontology when the page loads
         captureSelectedOntology();
+        form.submit();
 
         // Prevent the default form submission for the previous and next buttons
         function preventFormSubmission(event) {

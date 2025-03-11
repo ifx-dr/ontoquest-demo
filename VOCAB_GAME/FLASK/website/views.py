@@ -23,10 +23,11 @@ def home():
     populate_definition_scores() # Populate definition scores from the ontologies
     remove_previous_entries(current_user.id) # Remove definitions and used words of the previous game
 
-    leaderboard_profiles = Profile.query.order_by(Profile.xp.desc()).limit(3).all() # Retrieve the top 3 leaderboard profiles
-    update_level_progression() # Update the level of all the profiles
+    #leaderboard_profiles = Profile.query.order_by(Profile.xp.desc()).limit(3).all() # Retrieve the top 3 leaderboard profiles
+    #update_level_progression() # Update the level of all the profiles
 
     # Handle POST request for updating profile picture
+    """
     if request.method == 'POST':
         if 'src' in request.json:
             src = request.json['src']
@@ -37,25 +38,24 @@ def home():
                 user_profile.profile_picture = profile_picture  # Update the user's profile picture in the database
                 db.session.commit()
                 return jsonify({'message': 'Profile picture updated successfully'}) # Return success message
-
+    """
     # Render home page with user information if authenticated
     if current_user.is_authenticated:
 
         user_profile = Profile.query.filter_by(user_id=current_user.id).first() # Retrieve the user's profile
         if user_profile:
 
-            user_profile.level = level_progression(user_profile.xp) # Update user's profile level
+            #user_profile.level = level_progression(user_profile.xp) # Update user's profile level
             db.session.commit()
             # Retrieve necessary user's information for the home page
             username = user_profile.username
-            level = user_profile.level
-            xp = user_profile.xp
-            xp_percentage, xp_level, xp_to_reach = calculate_xp_percentage(level, xp) # Calculates different level information for the home page
+            #level = user_profile.level
+            #xp = user_profile.xp
+            #xp_percentage, xp_level, xp_to_reach = calculate_xp_percentage(level, xp) # Calculates different level information for the home page
             profile_picture = user_profile.profile_picture  # Retrieve the profile picture from the database
 
             # Render home page with user information
-            return render_template('home.html', username=username, level=level, profile_picture=profile_picture,
-                                   xp_percentage=xp_percentage, xp_level=xp_level, xp_to_reach=xp_to_reach, leaderboard_profiles=leaderboard_profiles)
+            return render_template('home.html', username=username, profile_picture=profile_picture)
 
     # Render home page with current user (if not authenticated)
     return render_template("home.html", user=current_user)
@@ -75,6 +75,7 @@ def information():
     # Render information page with the current user
     return render_template("information.html", user=current_user)
 
+"""
 @views.route('/leaderboard', methods=['GET', 'POST'])
 @login_required
 def leaderboard():
@@ -132,7 +133,7 @@ def challenges():
 
     # Render home page with current user (if not authenticated)
     return render_template("challenges.html", user=current_user)
-
+"""
 
 def update_level_progression():
     """
@@ -323,6 +324,7 @@ def construct_graph(random_word, onto):
     """
     G = nx.DiGraph() # Initialize a directed graph
 
+
     # Add the selected class (random word) to the graph
     G.add_node(random_word.name, name=random_word.name, definition=get_highest_scored_definition(random_word), type="owl:Class")
 
@@ -335,21 +337,48 @@ def construct_graph(random_word, onto):
             G.add_node(cls.name, name=cls.name, definition=get_highest_scored_definition(cls), type="owl:Class")  # Add the subclass as a node
             G.add_edge(random_word.name, cls.name, label="Subclass of",type="subclass" )  # Add edge for superclass relationship
 
-
-        for prop in onto.object_properties(): # Add the object properties of the random word
+        
+        #for prop in onto.object_properties(): # Add the object properties of the random word
             for domain_cls in prop.domain:
                 if domain_cls == random_word:
                     for range_cls in prop.range:
                         G.add_node(range_cls.name, name=range_cls.name, definition=get_highest_scored_definition(range_cls),
-                                   type="owl:Class")
+                                    type="owl:Class")
                         G.add_edge(random_word.name, range_cls.name, label=prop.name, type="objectproperties")
             for range_cls in prop.range:
                 if range_cls == random_word:
                     for domain_cls in prop.domain:
                         G.add_node(domain_cls.name, name=domain_cls.name, definition=get_highest_scored_definition(domain_cls),
-                                   type="owl:Class")
+                                    type="owl:Class")
                         G.add_edge(domain_cls.name, random_word.name, label=prop.name, type="objectproperties")
+        """
+        for prop in onto.object_properties(): # Add the object properties of the random word
+            for domain_cls in prop.domain:
+                if domain_cls == random_word:
+                    for range_cls in prop.range:
+                        if hasattr(range_cls, 'name'):
+                            G.add_node(range_cls.name, name=range_cls.name, definition=get_highest_scored_definition(range_cls), type="owl:Class")
+                            G.add_edge(random_word.name, range_cls.name, label=prop.name, type="objectproperties")
+                        else:
+                            if isinstance(range_cls, Or):
+                                # Handling case where range_cls is of type 'Or'
+                                print(f"Warning: Logical combination detected in range_cls - {range_cls}")
+                            else:
+                                print(f"Error: range_cls doesn't have 'name' attribute")
 
+            for range_cls in prop.range:
+                if range_cls == random_word:
+                    for domain_cls in prop.domain:
+                        if hasattr(domain_cls, 'name'):
+                            G.add_node(domain_cls.name, name=domain_cls.name, definition=get_highest_scored_definition(domain_cls), type="owl:Class")
+                            G.add_edge(domain_cls.name, random_word.name, label=prop.name, type="objectproperties")
+                        else:
+                            if isinstance(domain_cls, Or):
+                                # Handling case where domain_cls is of type 'Or'
+                                print(f"Warning: Logical combination detected in domain_cls - {domain_cls}")
+                            else:
+                                print(f"Error: domain_cls doesn't have 'name' attribute")
+        """
         for prop in onto.data_properties(): # Add the data properties of the random word
             for domain_cls in prop.domain:
                 if domain_cls == random_word:
@@ -569,7 +598,7 @@ def term_visualization():
 
         # Load the ontology using its path and retrieve classes, object properties, superclass, and subclass information
         class_onto = create_ontology_file(random_word, onto)
-        file_path= os.path.join(basedir, "static", "ontologies", "YOUR_ONTOLOGY.rdf")
+        file_path= os.path.join(basedir, "static", "ontologies", "DigitalReference.rdf")
         onto_word = get_ontology("file://" + file_path).load()  # Load the ontology using its path
         classes = list(onto_word.classes())
 
@@ -585,8 +614,8 @@ def term_visualization():
             if random_word in cls.is_a:
                 number_subclasses += 1
 
-
-        return render_template('term-visualization.html', user=current_user, word=random_word.name, definition=highest_scored_definition,
+        name = random_word.name.replace("_", " ")
+        return render_template('term-visualization.html', user=current_user, word=name, definition=highest_scored_definition,
                                ontology_graph=graph_json, onto_id=ontology_selected.id, number_classes=number_classes, number_object_properties=number_object_properties,
                                number_superclasses=number_superclasses, number_subclasses=number_subclasses)
 
@@ -726,6 +755,22 @@ def mobile_ontology_visualization():
 
     return render_template('mobile-ontology-visualization.html', user=current_user)
 
+def get_definition_from_ontology(class_name):
+    # Ruta a tu ontología
+    ontology_path = "ruta/a/tu/ontologia.owl"
+    
+    # Cargar la ontología
+    onto = get_ontology("file://" + ontology_path).load()
+    
+    # Buscar la clase en la ontología
+    for owl_class in onto.classes():
+        if owl_class.name == class_name:
+            # Obtener el comentario (definición)
+            if owl_class.comment:
+                return str(owl_class.comment[0])  # Asumiendo que hay un solo comentario por clase
+            else:
+                return "No definition available"
+
 @views.route('/game/question/<int:question_number>', methods=['GET', 'POST'])
 @login_required
 def handle_question(question_number):
@@ -753,10 +798,11 @@ def handle_question(question_number):
         random_word = select_random_word(classes, previous_used_classes) # Select a random word (class) to be displayed
         print(random_word)
         store_used_word(random_word, current_user.id) #Store the used word in the database
+        
 
-        highest_scored_definition = get_highest_scored_definition(random_word) # Retrieve the highest scored definition associated to the random word
+        definition = get_highest_scored_definition(random_word) # Retrieve the highest scored definition associated to the random word
         profile_game.random_word = random_word.name # Update the user's game information with the current random word
-        profile_game.random_definition = highest_scored_definition
+        profile_game.random_definition = definition
         db.session.commit() # Commit the updates to the database
 
         G = construct_graph(random_word, onto) # Construct a graph based on the random word and ontology
@@ -767,13 +813,17 @@ def handle_question(question_number):
         rounded_percentage = round(question_number * 100 / total_question) # Calculate the percentage progress of the game
 
         # Retrieve additional information for rendering the question interface
-        alternative_names = random_word.hasAlternativeName or ['N/A']  # If no alternative names, default to 'N/A'
-        abbreviations = random_word.hasAbbreviation or ['N/A']  # If no abbreviations, default to 'N/A'
-        # german_names = random_word.hasGermanName or ['N/A']  # If no German names, default to 'N/A'
-        examples = random_word.hasExample or ['N/A']  # If no examples, default to 'N/A'
+        #alternative_names = getattr(random_word, 'hasAlternativeName', ['N/A'])  # If no alternative names, default to 'N/A'
+        alternative_names = ['N/A']
+        abbreviations = ['N/A']
+        examples = ['N/A']
+        #abbreviations = getattr(random_word, 'hasAbbreviation', ['N/A'])  # If no abbreviations, default to 'N/A']
+        # german_names = getattr(random_word, 'hasGermanName', ['N/A'])  # If no German names, default to 'N/A'
+        #examples = getattr(random_word, 'hasExample', ['N/A'])  # If no examples, default to 'N/A']
 
+        name = random_word.name.replace("_", " ")
         return render_template('handle-question.html', user=current_user, question_number=question_number,
-                               word=random_word.name, definition=highest_scored_definition,
+                               word=name, definition=definition,
                                rounded_percentage=rounded_percentage, ontology_graph=graph_json,
                                onto_id=ontology_selected.id, alternative_names=alternative_names,
                                abbreviations=abbreviations, examples=examples)
@@ -1135,7 +1185,7 @@ def summary():
 
     return render_template('summary.html', user=current_user, user_validated_definition=user_validated_definition,
                            user_revised_definition=user_revised_definition,
-                           user_passed_definition=user_passed_definition, vocab_score=vocab_score, number_validated=number_validated, number_revised=number_revised)
+                           user_passed_definition=user_passed_definition, vocab_score=vocab_score, number_validated=number_validated, number_revised=number_revised, total_question=total_question)
 
 @views.route('/game/detailed-overview', methods=['GET', 'POST'])
 @login_required

@@ -7,6 +7,7 @@ CREATE TABLE ontology (
 	ontology_url VARCHAR(255), 
 	PRIMARY KEY (id)
 );
+INSERT INTO ontology VALUES(DEFAULT,'Digital Reference','Holistic Ontology for semiconductor manufacturing and development, products and systems containing semiconductors and connected supply chains.','picture/ontologies_pictures/Lobesv1.png','DigitalReference.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Planning Lobe','This Lobe models semiconductor supply chain planning','picture/ontologies_pictures/supplychain.jpg','PlanningOntology.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Microcontroller','This ontology deals with the domain microcontroller.','picture/ontologies_pictures/microcontroller.jpg','microcontroller.rdf');
 INSERT INTO ontology VALUES(DEFAULT,'Ordermanagement','This ontology deals with the domain order management.','picture/ontologies_pictures/OrderManagement.jpg','OrderManagement.rdf');

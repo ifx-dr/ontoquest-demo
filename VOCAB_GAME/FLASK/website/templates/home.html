@@ -10,7 +10,7 @@
 {% block content %}
 <!-- Navigation link -->
 <a class="nav-item nav-link" id="information" href="{{ url_for('views.information') }}"><i class="bi bi-info-circle-fill"></i></a>
-<a class="nav-item nav-link" id="logout" href="/logout"><i class="bi bi-box-arrow-right"></i></a>
+<!--<a class="nav-item nav-link" id="logout" href="/logout"><i class="bi bi-box-arrow-right"></i></a>-->
 
 <h1 class="scale-in-center">Welcome To OntoQuest</h1>
 <div class="navigation-bar">
@@ -26,7 +26,7 @@
 <!-- Welcome section -->
 
 <div class="section">
-    <!-- Leaderboard section -->
+    <!-- Leaderboard section 
     <div class="leaderboard">
         <h3 class="title">Leaderboard</h3>
         <div class="leaderboard-container">
@@ -40,18 +40,17 @@
             </div>
             {% endfor %}
         </div>
-    </div>
+    </div>-->
 
     <!-- User profile section -->
     <div class="user-profile">
         <div class="profile-details">
-            <div class="user-details">
+            <!--<div class="user-details">
                 <div class="profile-picture-container">
                     <img id="profile-picture" src="{{ url_for('static', filename=profile_picture) }}" alt="Profile Picture" onclick="openPictureModal()">
                     <div class="modal" id="picture-modal">
                         <span class="close" onclick="closePictureModal()">&times;</span>
 
-                            <!-- Profile picture options -->
                             {% for i in range(1, 4) %}
                             <img src="{{ url_for('static', filename='picture/user_profile/user' ~ i ~ '-removebg-preview.png') }}" alt="User {{ i }}" onclick="changeProfilePicture(this.src)">
                             {% endfor %}
@@ -60,8 +59,7 @@
                 </div>
                 <h3>{{ username }}</h3>
             </div>
-
-            <!-- Badges section -->
+            
             <div class="badges-section">
                 <h3>Badges</h3>
                 <div class="badge-container">
@@ -69,10 +67,11 @@
                     <img src="{{ url_for('static', filename='picture/locked_badge.png') }}" alt="locked_badges{{ i }}">
                     {% endfor %}
                 </div>
-            </div>
+            </div>-->
+            <h3>With this game you will learn about Digital Reference, a top-level ontology for Semantic Web applications in the semiconductor domain.</h3>
         </div>
 
-        <!-- Progress bar and level section -->
+        <!-- Progress bar and level section 
         <div class="progress-bar-section">
             <div class="level-container">
                 <p>Your Current Level: {{ level }}</p>
@@ -83,16 +82,16 @@
                 </div>
                 <p>{{xp_level}}/{{xp_to_reach}}</p>
             </div>
-        </div>
+        </div>-->
     </div>
 
-    <!-- Challenges section -->
+    <!-- Challenges section
     <div class="challenges">
         <h3>Challenges</h3>
         <p class="challenge">Define or validate 5 terms in the 3 different ontologies</p>
         <p class="challenge">Add a new definition based on a specific domain or topic</p>
         <p class="challenge">Define a specific term in 2 different ontologies</p>
-    </div>
+    </div>-->
 </div>
 
 <!-- Play link -->

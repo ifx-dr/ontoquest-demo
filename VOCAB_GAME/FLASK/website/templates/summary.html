@@ -9,10 +9,10 @@
 
 {% block content %}
 <!-- Title for the summary page -->
-<h1 class="title">Summary of Completed Definitions</h1>
+<h1 class="title">Summary of the game</h1>
 <div class="content">
     {% if number_validated !=0 %}
-    <div class="carousel">
+    <!--<div class="carousel" style="display: none;">
     <h3>Validated Definitions</h3>
         <div class="container swiper">
             <div class="slider-wrapper">
@@ -31,17 +31,18 @@
                 <div class="swiper-slide-button swiper-button-next"></div>
             </div>
         </div>
-    </div>
+    </div>-->
     {% else %}
     <div class="carousel">
-    <h3>Validated Definitions</h3>
+    <h3>Hope you learned something new about Digital Reference!</h3>
         <div class="container swiper">
             <div class="slider-wrapper">
                 <div class="card-list swiper-wrapper">
                     <div class="card-item swiper-slide">
-                        <li class="definition_class">
-                            You haven't validated any definitions yet. Keep engaging with the game to contribute and enrich the vocabulary list!
-                        </li>
+                        <!--<li class="definition_class">
+                            You haven't validated any definitions yet. Keep engaging with the game to contribute and enrich the vocabulary list!-->
+                            You have learnt about {{ total_question }} new concepts of the DR!
+                        <!--</li>-->
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -52,7 +53,7 @@
     </div>
     {% endif %}
 
-    {% if number_revised !=0 %}
+    <!--{% if number_revised !=0 %}
     <div class="carousel">
     <h3>Unvalidated Definitions and Alternatives</h3>
         <div class="container swiper">
@@ -76,8 +77,8 @@
                 <div class="swiper-slide-button swiper-button-next"></div>
             </div>
         </div>
-    </div>
-    {% else %}
+    </div>-->
+    <!--{% else %}
     <div class="carousel">
     <h3>Unvalidated Definitions and Alternatives</h3>
         <div class="container swiper">
@@ -95,16 +96,16 @@
             </div>
         </div>
     </div>
-    {% endif %}
+    {% endif %}-->
 
 </div>
 
-<div class="progress-bar-section">
+<!--<div class="progress-bar-section">
             <div class="progress-bar">
                 <div class="progress-bar-fill" style="width: {{vocab_score}}%;"></div>
             </div>
         </div>
-    <div class="score"><p>Vocabulary Enrichment Score: {{vocab_score}}%</p></div>
+    <div class="score"><p>Vocabulary Enrichment Score: {{vocab_score}}%</p></div>-->
 <div class="bottom">
     <a class="nav-item nav-link" id="home" href="/"><i class="bi bi-house-door-fill"></i></a>
 </div>

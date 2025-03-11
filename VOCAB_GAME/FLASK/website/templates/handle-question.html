@@ -116,9 +116,9 @@
     </div>
     {% else %}
         <div class="response-options">
-            <button type="submit" name="validationResponse" value="pass" id="pass-btn" title="You don’t know the term">Maybe</button>
-            <button type="submit" name="validationResponse" value="agree" id="agree-btn" title="You agree with the definition">True</button>
-            <button type="submit" name="validationResponse" value="disagree" id="disagree-btn" title="You don’t agree with the definition or not sure about the definition">False</button>
+            <button type="submit" name="validationResponse" value="pass" id="pass-btn" title="Continue">I understand</button>
+            <!--<button type="submit" name="validationResponse" value="agree" id="agree-btn" title="You agree with the definition">True</button>-->
+            <!--<button type="submit" name="validationResponse" value="disagree" id="disagree-btn" title="You don’t agree with the definition or not sure about the definition">False</button>-->
         </div>
     {% endif %}
 </form>
@@ -165,6 +165,7 @@
         var responseForm = document.getElementById('responseForm');
         var additionalInfoModal = new bootstrap.Modal(document.getElementById('additionalInfoModal'));
         var clickedButton = null;
+        var btntexts = ["I understand", "Got it", "Oh, interesting", "Let's continue"];
 
         // Event listeners for response buttons
         var agreeButton = document.getElementById('agree-btn');
@@ -173,6 +174,13 @@
 
         var enterButton = document.getElementById('enter-btn');
         var maybeButton = document.getElementById('maybe-btn');
+
+        function setRandomBtnText() {
+            var randomIndex = Math.floor(Math.random() * btntexts.length);
+            passButton.textContent = btntexts[randomIndex];
+        }
+
+        setRandomBtnText();
 
         if (agreeButton) {
             agreeButton.addEventListener('click', function() {
