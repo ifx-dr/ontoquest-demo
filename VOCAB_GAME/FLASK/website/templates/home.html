@@ -9,7 +9,7 @@
 
 {% block content %}
 <!-- Navigation link -->
-<a class="nav-item nav-link" id="information" href="{{ url_for('views.information') }}"><i class="bi bi-info-circle-fill"></i></a>
+<!--<a class="nav-item nav-link" id="information" href="{{ url_for('views.information') }}"><i class="bi bi-info-circle-fill"></i></a>-->
 <!--<a class="nav-item nav-link" id="logout" href="/logout"><i class="bi bi-box-arrow-right"></i></a>-->
 
 <h1 class="scale-in-center">Welcome To OntoQuest</h1>
@@ -17,16 +17,19 @@
     <div class="toggle_btn">
         <i class="bi bi-list"></i>
     </div>
+    {#
     <div class="dropdown_menu">
         <li><a href="/leaderboard"><i class="bi bi-trophy-fill"></i></a></li>
         <li><a href="/challenges"><i class="bi bi-map-fill"></i></a></li>
         <li><a href="/logout"><i class="bi bi-box-arrow-right"></i></a></li>
     </div>
+    #}
 </div>
 <!-- Welcome section -->
 
 <div class="section">
-    <!-- Leaderboard section 
+    <!-- Leaderboard section -->
+    {#
     <div class="leaderboard">
         <h3 class="title">Leaderboard</h3>
         <div class="leaderboard-container">
@@ -40,11 +43,12 @@
             </div>
             {% endfor %}
         </div>
-    </div>-->
+    </div>
+    #}
 
     <!-- User profile section -->
     <div class="user-profile">
-        <div class="profile-details">
+        <div class="profile-details">{#
             <!--<div class="user-details">
                 <div class="profile-picture-container">
                     <img id="profile-picture" src="{{ url_for('static', filename=profile_picture) }}" alt="Profile Picture" onclick="openPictureModal()">
@@ -67,10 +71,11 @@
                     <img src="{{ url_for('static', filename='picture/locked_badge.png') }}" alt="locked_badges{{ i }}">
                     {% endfor %}
                 </div>
-            </div>-->
-            <h3>With this game you will learn about Digital Reference, a top-level ontology for Semantic Web applications in the semiconductor domain.</h3>
+            </div>-->#}
+            <h3 style="text-align: center;">The Digital Reference is the semantic web for semiconductor and supply chains containing semiconductors.</h3>
         </div>
-
+        <img style="margin: 5%;" src="{{ url_for('static', filename='picture/ontologies_pictures/supplychain.jpg') }}" alt="Supply Chain picture">
+        {#
         <!-- Progress bar and level section 
         <div class="progress-bar-section">
             <div class="level-container">
@@ -83,8 +88,9 @@
                 <p>{{xp_level}}/{{xp_to_reach}}</p>
             </div>
         </div>-->
+        #}
     </div>
-
+    {#
     <!-- Challenges section
     <div class="challenges">
         <h3>Challenges</h3>
@@ -92,6 +98,7 @@
         <p class="challenge">Add a new definition based on a specific domain or topic</p>
         <p class="challenge">Define a specific term in 2 different ontologies</p>
     </div>-->
+    #}
 </div>
 
 <!-- Play link -->

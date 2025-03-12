@@ -17068,7 +17068,7 @@ It reflects a product from customer view without differentiation of manufacturin
 
     <owl:Class rdf:about="http://www.w3.org/2006/time#TRS">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/ecsel-dr#Time_Lobe"/>
-        <rdfs:comment>A temporal reference system, such as a temporal coordinate system (with an origin, direction, and scale), a calendar-clock combination, or a (possibly hierarchical) ordinal system. 
+        <rdfs:comment>Temporal Reference System. A temporal reference system, such as a temporal coordinate system (with an origin, direction, and scale), a calendar-clock combination, or a (possibly hierarchical) ordinal system. 
 
 This is a stub class, representing the set of all temporal reference systems.</rdfs:comment>
         <rdfs:comment xml:lang="es">Un sistema de referencia temporal, tal como un sistema de coordenadas temporales (con un origen, una dirección y una escala), una combinación calendario-reloj, o un sistema ordinal (posiblemente jerárquico).
@@ -18452,7 +18452,6 @@ It also represents Platform, Procedure, Property, Relationship Nature, Result, S
     <!-- http://www.w3id.org/ecsel-dr#Supply_Chain_Lobe -->
 
     <owl:Class rdf:about="http://www.w3id.org/ecsel-dr#Supply_Chain_Lobe">
-        <rdfs:comment>Lobe owner: Hans Ehm</rdfs:comment>
         <rdfs:comment>Supply chain refers to a network of interconnected organizations, activities, resources, and technologies involved in the production, distribution, and delivery of goods or services from the source to end consumer.
 
 The Supply Chain lobe models the Aggregated Capacity Group.
@@ -18463,6 +18462,7 @@ It depicts the Order and its Change Request, Confirmation, Line Item, Reschedule
 
 It represents the General Customers, the notion of Customer and its Data, Logistics Management Representative, Plant, Plant Data.
 It also maps the topics of Prioritized Demand and Orders, Products, Promise, Sales Supplier, Seller, Supplier and its Data, Supply, Supply Demand Match and Picture, Target Allocation, Transfer Action, and User Action.</rdfs:comment>
+        <rdfs:comment>Lobe owner: Hans Ehm</rdfs:comment>
         <rdfs:label xml:lang="en">Supply Chain Lobe</rdfs:label>
     </owl:Class>
     
@@ -25050,6 +25050,7 @@ D.h. sie bewegen sich nicht nur entlang vorgegebener physischer (z.B. optimscher
         <owl:equivalentClass rdf:resource="http://www.w3id.org/ecsel-dr-GDM#Supply_Chain"/>
         <owl:equivalentClass rdf:resource="http://www.w3id.org/ecsel-dr-SO#Supply_Chain"/>
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/ecsel-dr#Supply_Chain_Lobe"/>
+        <rdfs:comment>Supply chain refers to a network of interconnected organizations, activities, resources, and technologies involved in the production, distribution, and delivery of goods or services from the source to end consumer.</rdfs:comment>
         <rdfs:label xml:lang="en">Supply Chain</rdfs:label>
     </owl:Class>
     

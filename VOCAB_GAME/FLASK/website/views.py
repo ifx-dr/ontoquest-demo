@@ -27,18 +27,18 @@ def home():
     #update_level_progression() # Update the level of all the profiles
 
     # Handle POST request for updating profile picture
-    """
-    if request.method == 'POST':
-        if 'src' in request.json:
-            src = request.json['src']
-            src_parts = src.split('/')
-            profile_picture = '/'.join(src_parts[src_parts.index('picture'):])
-            user_profile = Profile.query.filter_by(user_id=current_user.id).first()
-            if user_profile:
-                user_profile.profile_picture = profile_picture  # Update the user's profile picture in the database
-                db.session.commit()
-                return jsonify({'message': 'Profile picture updated successfully'}) # Return success message
-    """
+    
+    #if request.method == 'POST':
+    #    if 'src' in request.json:
+    #        src = request.json['src']
+    #        src_parts = src.split('/')
+    #        profile_picture = '/'.join(src_parts[src_parts.index('picture'):])
+    #        user_profile = Profile.query.filter_by(user_id=current_user.id).first()
+    #        if user_profile:
+    #            user_profile.profile_picture = profile_picture  # Update the user's profile picture in the database
+    #            db.session.commit()
+    #            return jsonify({'message': 'Profile picture updated successfully'}) # Return success message
+    
     # Render home page with user information if authenticated
     if current_user.is_authenticated:
 
@@ -179,8 +179,8 @@ def department():
     Returns:
     If successful, redirects to the ontology selection page. Otherwise, renders the department page with appropriate messages.
     """
-    remove_duplicate_definition_db() # Remove duplicate definitions from the database
-    populate_definition_scores() # Populate definition scores database
+    #remove_duplicate_definition_db() # Remove duplicate definitions from the database
+    #populate_definition_scores() # Populate definition scores database
     profile_game = GameInformation.query.filter_by(profile_id=current_user.id).first() # Retrieve the user's game information
 
     # Handle POST request for department selection
@@ -216,8 +216,8 @@ def ontology_selection():
     Returns:
     If successful, redirects to the number question page. Otherwise, renders the ontology selection page with appropriate messages.
     """
-    remove_duplicate_definition_db()  # Remove duplicate definitions from the database
-    populate_definition_scores()  # Populate definition scores
+    #remove_duplicate_definition_db()  # Remove duplicate definitions from the database
+    #populate_definition_scores()  # Populate definition scores
 
     if current_user.is_authenticated:
         # Retrieve the user's game information
@@ -229,7 +229,7 @@ def ontology_selection():
 
         # Extract the relevant ontologies from the associations
         relevant_ontologies = [association.ontology for association in relevant_ontology_associations]
-        print(relevant_ontologies)
+        #print(relevant_ontologies)
         # Convert the ontologies to a JSON-compatible list for rendering on the front-end
         ontologies_json = create_ontology_json(relevant_ontologies)
 
@@ -286,8 +286,8 @@ def number_question():
     Returns:
     If successful, redirects to the question handling page. Otherwise, renders the number question page with appropriate messages.
     """
-    remove_duplicate_definition_db()  # Remove duplicate definitions from the database
-    populate_definition_scores()  # Populate definition scores
+    #remove_duplicate_definition_db()  # Remove duplicate definitions from the database
+    #populate_definition_scores()  # Populate definition scores
     profile_game = GameInformation.query.filter_by(profile_id=current_user.id).first()  # Retrieve the user's game information
     ontology_selected, ontology_path, onto, classes = get_ontology_information(profile_game)  # Retrieve ontology information
 
@@ -783,11 +783,22 @@ def handle_question(question_number):
     Returns:
     If successful, redirects to the next question or summary page. Otherwise, renders the question interface.
     """
-    remove_duplicate_definition_db()  # Remove duplicate definitions from the database
-    populate_definition_scores()  # Populate definition scores
+    #remove_duplicate_definition_db()  # Remove duplicate definitions from the database
+    #populate_definition_scores()  # Populate definition scores
+    
+    
 
     profile_game = GameInformation.query.filter_by(profile_id=current_user.id).first()  # Retrieve the user's game information
     ontology_selected, ontology_path, onto, classes = get_ontology_information(profile_game)  # Retrieve ontology information
+    
+    fixed_words_map = {
+        1: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-BMS#Semiconductor_Company"),
+        2: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-DF#Supply_Chain"),
+        3: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-SO#Fab"),
+        4: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-GDM#Equipment"),
+        5: next(cls for cls in classes if cls.iri == "http://www.w3.org/2006/time#TRS")
+        
+    }
 
     if question_number == 1 and request.method == 'GET': # Means the user started a new game, reset the previous game's information
         remove_previous_entries(current_user.id) # Remove previous entries for the current user
@@ -796,10 +807,13 @@ def handle_question(question_number):
 
         previous_used_classes = get_previous_used_classes(current_user.id, ontology_path) # Retrieve previous used classes in the last questions
         random_word = select_random_word(classes, previous_used_classes) # Select a random word (class) to be displayed
+        
+        #Get the fixed classes for the first 5 questions
+        if question_number <= 5:
+            random_word = fixed_words_map.get(question_number)
+            
         print(random_word)
         store_used_word(random_word, current_user.id) #Store the used word in the database
-        
-
         definition = get_highest_scored_definition(random_word) # Retrieve the highest scored definition associated to the random word
         profile_game.random_word = random_word.name # Update the user's game information with the current random word
         profile_game.random_definition = definition
