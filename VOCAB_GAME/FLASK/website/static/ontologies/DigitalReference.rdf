@@ -18411,12 +18411,12 @@ It also models Packing Type, Planning Element, Price Indication, Product, Qualif
     <!-- http://www.w3id.org/ecsel-dr#Semiconductor_Development_Lobe -->
 
     <owl:Class rdf:about="http://www.w3id.org/ecsel-dr#Semiconductor_Development_Lobe">
-        <rdfs:comment>Lobe owner: Marta Bonik</rdfs:comment>
         <rdfs:comment>Semiconductor development refers to the process of researching, designing, and creating semiconductor devices to meet technological advancements and industry demands.
 
 The Semiconductor Development lobe of the Digital Reference models the Current Work In Progress, Cycle Time and Delivery Commitment, EPA, Equipment and Equipent Group, and Event Calendar.
 It reprensents the notions of Mask, Material Transfer Matrix, Operation, Operator, Owner, Planning Work Center, Plant,  and Process.
 It also maps the topics of Product Level, Target Revenue and Service Level, Technology, Time Constraints, Tool, and Workshop.</rdfs:comment>
+        <rdfs:comment>Lobe owner: Marta Bonik</rdfs:comment>
         <rdfs:label xml:lang="en">Semiconductor Development Lobe</rdfs:label>
     </owl:Class>
     
@@ -18494,10 +18494,11 @@ This lobe of the Digital Reference models the I 4.0 Component, the Asset it repr
     <!-- http://www.w3id.org/ecsel-dr#Time_Lobe -->
 
     <owl:Class rdf:about="http://www.w3id.org/ecsel-dr#Time_Lobe">
-        <rdfs:comment>Lobe owner: Philipp Ulrich</rdfs:comment>
         <rdfs:comment>Time refers to a measurable dimension in which events occur sequentially and can be used to qualify the duration between occurences.
 
 This lobe of the digital reference represents the topics of Temporal Duration, Position and Reference Position, the Time Zone, Months and Days of the week.</rdfs:comment>
+
+        <rdfs:comment>Lobe owner: Philipp Ulrich</rdfs:comment>
         <rdfs:label xml:lang="en">Time Lobe</rdfs:label>
     </owl:Class>
     
@@ -25202,6 +25203,7 @@ D.h. sie bewegen sich nicht nur entlang vorgegebener physischer (z.B. optimscher
 
     <owl:Class rdf:about="http://www.w3id.org/ecsel-dr-GDM#Calendar">
         <rdfs:subClassOf rdf:resource="http://www.w3id.org/ecsel-dr#Semiconductor_Production_Lobe"/>
+        <rdfs:comment>A Calendar is an entity that organizes and represents temporal information, typically in the form of days, weeks, months, and years. It serves as a structured framework for managing events, activities, and schedules over time. </rdfs:comment>
         <rdfs:label xml:lang="en">Calendar</rdfs:label>
     </owl:Class>
     

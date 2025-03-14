@@ -792,12 +792,12 @@ def handle_question(question_number):
     ontology_selected, ontology_path, onto, classes = get_ontology_information(profile_game)  # Retrieve ontology information
     
     fixed_words_map = {
-        1: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-BMS#Semiconductor_Company"),
-        2: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-DF#Supply_Chain"),
+        1: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-DF#Supply_Chain"),
+        2: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-BMS#Semiconductor_Company"),
         3: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-SO#Fab"),
         4: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-GDM#Equipment"),
-        5: next(cls for cls in classes if cls.iri == "http://www.w3.org/2006/time#TRS")
-        
+        5: next(cls for cls in classes if cls.iri == "http://www.w3id.org/ecsel-dr-GDM#Calendar")
+
     }
 
     if question_number == 1 and request.method == 'GET': # Means the user started a new game, reset the previous game's information

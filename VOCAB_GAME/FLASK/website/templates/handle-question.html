@@ -88,7 +88,8 @@
         <h3>{{ word }}</h3>
         <p>{{ definition }}</p>
     </div>
-    <div class="information">
+    
+    <div class="information" style="visibility:hidden;">
         <h3>Information</h3>
         <ul>
             <li>
@@ -106,7 +107,6 @@
         </ul>
     </div>
 </div>
-
 <!-- Response form -->
 <form method="POST" id="responseForm">
     {% if definition == "No definition available" %}
